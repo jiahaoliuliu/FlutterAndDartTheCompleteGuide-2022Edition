@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Personal expenses',
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
       ),
       home: MyHomePage(),
     );

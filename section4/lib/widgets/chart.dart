@@ -34,7 +34,7 @@ class Chart extends StatelessWidget {
           'amount': totalSum,
         };
       },
-    );
+    ).reversed.toList();
   }
 
   double get totalSpending {
@@ -50,7 +50,7 @@ class Chart extends StatelessWidget {
     return Card(
         elevation: 6,
         margin: EdgeInsets.all(20),
-        child: Padding(
+        child: Container(
           padding: EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

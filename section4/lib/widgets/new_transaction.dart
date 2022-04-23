@@ -18,17 +18,18 @@ class _NewTransactionsState extends State<NewTransactions> {
   DateTime _selectedDate;
 
   void _submitData() {
-    final enteredTitle = _titleController.text;
-    final enteredAmount = double.parse(_amountController.text);
-
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if (_amountController.text.isEmpty) {
       return;
     }
 
-    widget.addTransaction(
-      enteredTitle,
-      enteredAmount,
-    );
+    final enteredTitle = _titleController.text;
+    final enteredAmount = double.parse(_amountController.text);
+
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
+      return;
+    }
+
+    widget.addTransaction(enteredTitle, enteredAmount, _selectedDate);
 
     // This will close down the bottom sheet
     Navigator.of(context).pop();

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:section4/widgets/transaction_item.dart';
 import '../models/transaction.dart';
-import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> _transactionsList;
   final Function _deleteTransaction;
 
-  TransactionList(this._transactionsList, this._deleteTransaction);
+  const TransactionList(this._transactionsList, this._deleteTransaction);
 
   @override
   Widget build(BuildContext context) {
+    print('build() TansactionList');
     return _transactionsList.isEmpty
         ? LayoutBuilder(
             builder: (context, constraints) {
@@ -19,7 +20,7 @@ class TransactionList extends StatelessWidget {
                     'No transactions added yet!',
                     style: Theme.of(context).textTheme.headline6,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
@@ -35,45 +36,9 @@ class TransactionList extends StatelessWidget {
           )
         : ListView.builder(
             itemBuilder: (context, position) {
-              return Card(
-                elevation: 5,
-                margin: EdgeInsets.symmetric(
-                  vertical: 8,
-                  horizontal: 5,
-                ),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: Padding(
-                      padding: EdgeInsets.all(6),
-                      child: FittedBox(
-                        child: Text(
-                          '\$${_transactionsList[position].amount}',
-                        ),
-                      ),
-                    ),
-                  ),
-                  title: Text(_transactionsList[position].title,
-                      style: Theme.of(context).textTheme.headline6),
-                  subtitle: Text(
-                    DateFormat.yMMMd().format(_transactionsList[position].date),
-                  ),
-                  trailing: MediaQuery.of(context).size.width > 460
-                      ? FlatButton.icon(
-                          icon: Icon(Icons.delete),
-                          label: Text('Delete'),
-                          textColor: Theme.of(context).errorColor,
-                          onPressed: () => _deleteTransaction(
-                              _transactionsList[position].id),
-                        )
-                      : IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Theme.of(context).errorColor,
-                          onPressed: () => _deleteTransaction(
-                              _transactionsList[position].id),
-                        ),
-                ),
-              );
+              return TransactionItem(
+                  transaction: _transactionsList[position],
+                  deleteTransaction: _deleteTransaction);
             },
             itemCount: _transactionsList.length,
           );

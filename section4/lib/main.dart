@@ -150,14 +150,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    print('build() My home state ');
-    final mediaQuery = MediaQuery.of(context);
-    final isLandscape = mediaQuery.orientation == Orientation.landscape;
-    final PreferredSizeWidget appBar = Platform.isIOS
+  PreferredSizeWidget _buildAppBar() {
+    return Platform.isIOS
         ? CupertinoNavigationBar(
-            middle: Text(
+            middle: const Text(
               'Personal Expenses',
             ),
             trailing: Row(
@@ -173,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           )
         : AppBar(
-            title: Text(
+            title: const Text(
               'Personal expenses',
             ),
             actions: <Widget>[
@@ -183,7 +179,38 @@ class _MyHomePageState extends State<MyHomePage> {
               )
             ],
           );
+  }
 
+  Widget _buildIosScaffold(
+    PreferredSizeWidget appBar,
+    Widget pageBody,
+  ) {
+    return CupertinoPageScaffold(
+      navigationBar: appBar,
+      child: pageBody,
+    );
+  }
+
+  Widget _buildAndroidScaffold(PreferredSizeWidget appBar, Widget pageBody) {
+    return Scaffold(
+      appBar: appBar,
+      body: pageBody,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Platform.isIOS
+          ? Container()
+          : FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () => _startAddNewTransaction(context),
+            ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('build() My home state ');
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
+    final PreferredSizeWidget appBar = _buildAppBar();
     final transactionsListWidget = Container(
       height: (mediaQuery.size.height -
               mediaQuery.padding.top -
@@ -213,21 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return Platform.isIOS
-        ? CupertinoPageScaffold(
-            child: pageBody,
-            navigationBar: appBar,
-          )
-        : Scaffold(
-            appBar: appBar,
-            body: pageBody,
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: Platform.isIOS
-                ? Container()
-                : FloatingActionButton(
-                    child: Icon(Icons.add),
-                    onPressed: () => _startAddNewTransaction(context),
-                  ),
-          );
+        ? _buildIosScaffold(appBar, pageBody)
+        : _buildAndroidScaffold(appBar, pageBody);
   }
 }

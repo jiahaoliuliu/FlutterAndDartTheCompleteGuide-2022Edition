@@ -8,7 +8,7 @@ enum Complexity {
 
 enum Affordability {
   Affordable,
-  Pricey,
+  Pricy,
   Luxurious,
 }
 
@@ -27,19 +27,18 @@ class Meal {
   final bool isVegan;
   final bool isVegetarian;
 
-  const Meal({
-    @required this.id,
-    @required this.categories,
-    @required this.title,
-    @required this.imageUrl,
-    @required this.ingredients,
-    @required this.steps,
-    @required this.duration,
-    @required this.complexity,
-    @required this.affordability,
-    @required this.isGlutenFree,
-    @required this.isLactoseFree,
-    @required this.isVegan,
-    @required this.isVegetarian,
-  });
+  const Meal(
+      {@required this.id,
+      @required this.categories,
+      @required this.title,
+      @required this.imageUrl,
+      @required this.ingredients,
+      @required this.steps,
+      @required this.duration,
+      @required this.complexity,
+      @required this.affordability,
+      @required this.isGlutenFree,
+      @required this.isLactoseFree,
+      @required this.isVegan,
+      @required this.isVegetarian});
 }

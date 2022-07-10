@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/dummy_data.dart';
 import 'package:flutter_complete_guide/widgets/meal_item.dart';
-
-import '../dummy_data.dart';
 
 class CategoryMealsScreen extends StatelessWidget {
   static const routeName = '/category-meals';
-
   // final String categoryId;
   // final String categoryTitle;
 
-  // const CategoryMealsScreen(this.categoryId, this.categoryTitle);
+  // const CategoryMealsScreen(this.categoryId, this.categoryTitle) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +23,15 @@ class CategoryMealsScreen extends StatelessWidget {
         title: Text(categoryTitle),
       ),
       body: ListView.builder(
-        itemBuilder: (context, index) {
-          final meal = categoryMeals[index];
+        itemBuilder: (ctx, index) {
+          final mealItem = categoryMeals[index];
           return MealItem(
-            id: meal.id,
-            title: meal.title,
-            imageUrl: meal.imageUrl,
-            duration: meal.duration,
-            complexity: meal.complexity,
-            affordability: meal.affordability,
+            id: mealItem.id,
+            title: mealItem.title,
+            imageUrl: mealItem.imageUrl,
+            duration: mealItem.duration,
+            complexity: mealItem.complexity,
+            affordability: mealItem.affordability,
           );
         },
         itemCount: categoryMeals.length,

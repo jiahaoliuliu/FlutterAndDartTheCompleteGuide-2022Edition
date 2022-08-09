@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../dummy_data.dart';
 
-class MeanDetailsScreen extends StatelessWidget {
+class MealDetailsScreen extends StatelessWidget {
   static const routeName = "/meal-detail";
 
   Widget buildSectionTitle(BuildContext context, String text) {
@@ -26,7 +26,7 @@ class MeanDetailsScreen extends StatelessWidget {
     );
   }
 
-  const MeanDetailsScreen();
+  const MealDetailsScreen();
 
   @override
   Widget build(BuildContext context) {

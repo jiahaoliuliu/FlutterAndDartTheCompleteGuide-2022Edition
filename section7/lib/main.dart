@@ -71,6 +71,10 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  bool _isMealFavorite(String id) {
+    return _favoriteMeals.any((meal) => meal.id == id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

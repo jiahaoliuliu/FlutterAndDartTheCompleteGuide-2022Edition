@@ -31,8 +31,6 @@ class MealDetailsScreen extends StatelessWidget {
     );
   }
 
-  const MealDetailsScreen();
-
   @override
   Widget build(BuildContext context) {
     final mealId = ModalRoute.of(context).settings.arguments as String;
@@ -94,7 +92,7 @@ class MealDetailsScreen extends StatelessWidget {
         child: Icon(
           isFavorite(mealId) ? Icons.star : Icons.star_border,
         ),
-        onPressed: toggleFavorite,
+        onPressed: () => toggleFavorite(mealId),
       ),
     );
   }

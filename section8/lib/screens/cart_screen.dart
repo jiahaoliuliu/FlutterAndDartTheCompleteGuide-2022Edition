@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/cart.dart' show Cart;
 import '../widgets/cart_item.dart';
+import '../providers/Orders.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/cart';
-
-  const CartScreen() : super();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,13 @@ class CartScreen extends StatelessWidget {
                   ),
                   ElevatedButton(
                     child: Text('Order now'),
-                    onPressed: () {},
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                        cart.items.values.toList(),
+                        cart.totalAmount,
+                      );
+                      cart.clear();
+                    },
                     style: ElevatedButton.styleFrom(
                       textStyle:
                           TextStyle(color: Theme.of(context).primaryColor),

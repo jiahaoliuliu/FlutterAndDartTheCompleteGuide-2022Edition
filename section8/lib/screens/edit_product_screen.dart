@@ -76,7 +76,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
-  void _saveForm() {
+  Future<void> _saveForm() async {
     final _isValid = _form.currentState.validate();
     if (!_isValid) {
       return;
@@ -93,33 +93,34 @@ class _EditProductScreenState extends State<EditProductScreen> {
         _isLoading = false;
       });
     } else {
-      Provider.of<Products>(context, listen: false)
-          .addProduct(_editedProduct)
-          .catchError((error) {
-        return showDialog<Null>(
+      try {
+        await Provider.of<Products>(context, listen: false)
+            .addProduct(_editedProduct);
+      } catch (error) {
+        // Wait all the blocks get executed before executing finally
+        await showDialog<Null>(
           context: context,
           builder: (ctx) => AlertDialog(
-              title: Text('An error ocurred!'),
-              content: Text(
-                'Something went wrong.',
-              ),
-              actions: [
-                ElevatedButton(
-                  child: Text('close'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ]),
+            title: Text('An error ocurred!'),
+            content: Text(
+              'Something went wrong.',
+            ),
+            actions: [
+              ElevatedButton(
+                child: Text('Okay'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          ),
         );
-      }).then(
-        (_) {
-          setState(() {
-            _isLoading = false;
-          });
-          Navigator.of(context).pop();
-        },
-      );
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pop();
+      }
     }
   }
 

@@ -67,10 +67,10 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProduct(Product product) {
+  Future<void> addProduct(Product product) {
     const url =
         'https://flutter-course-on-udemy-default-rtdb.europe-west1.firebasedatabase.app/products.json';
-    http
+    return http
         .post(
       url,
       body: json.encode(

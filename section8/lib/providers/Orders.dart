@@ -25,6 +25,13 @@ class Orders with ChangeNotifier {
     return [..._orders];
   }
 
+  Future<void> fetchAndSetOrders() async {
+    const url =
+        'https://flutter-course-on-udemy-default-rtdb.europe-west1.firebasedatabase.app/orders.json';
+    final response = await http.get(url);
+    print(json.decode(response.body));
+  }
+
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     const url =
         'https://flutter-course-on-udemy-default-rtdb.europe-west1.firebasedatabase.app/orders.json';

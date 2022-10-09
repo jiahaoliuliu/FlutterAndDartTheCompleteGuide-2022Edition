@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import '../models/http_exception.dart';
@@ -7,6 +8,7 @@ class Auth with ChangeNotifier {
   String _token;
   DateTime _expiryDate;
   String _userId;
+  Timer _authTimer;
 
   bool get isAuth {
     return token != null;
@@ -28,7 +30,8 @@ class Auth with ChangeNotifier {
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
-    final url = "https://identitytoolkit.googleapis.com/v1/$urlSegment?key=";
+    final url =
+        "https://identitytoolkit.googleapis.com/v1/$urlSegment?key=AIzaSyCxzsb2ogQFW4gOuA0ZG1QfRM7cxByfypA";
     try {
       final response = await http.post(
         url,
@@ -55,6 +58,9 @@ class Auth with ChangeNotifier {
           ),
         ),
       );
+
+      _autoLogout();
+
       notifyListeners();
     } catch (error) {
       print(error);
@@ -74,6 +80,18 @@ class Auth with ChangeNotifier {
     _token = null;
     _userId = null;
     _expiryDate = null;
+    if (_authTimer != null) {
+      _authTimer.cancel();
+      _authTimer = null;
+    }
     notifyListeners();
+  }
+
+  void _autoLogout() {
+    if (_authTimer != null) {
+      _authTimer.cancel();
+    }
+    final timeToExpiry = _expiryDate.difference(DateTime.now()).inSeconds;
+    _authTimer = Timer(Duration(seconds: timeToExpiry), logout);
   }
 }

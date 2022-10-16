@@ -105,7 +105,7 @@ class _AuthCardState extends State<AuthCard>
   var _isLoading = false;
   final _passwordController = TextEditingController();
   AnimationController _controller;
-  Animation<Size> _heightAnimation;
+  Animation<Offset> _slideAnimation;
   Animation<double> _opacityAnimation;
 
   @override
@@ -119,16 +119,8 @@ class _AuthCardState extends State<AuthCard>
     // tween has the information about how to animate between two values
     // In thi scase, begin but do not change the width (double.infinity). Only change
     // the height
-    _heightAnimation = Tween<Size>(
-            begin: Size(double.infinity, 260), end: Size(double.infinity, 320))
-        // The value curve specifies how the duration time here is basically split
-        // - Curves.linear:
-        //   Moves from the beginning to the end at the same speed
-        // - Curves.easeIn
-        //   Starts slowly and Ends quickly
-        // - Curves.fastOutSlowIn
-        //   Starts slow and ends fast
-        .animate(
+    _slideAnimation =
+        Tween<Offset>(begin: Offset(0, -1.5), end: Offset(0, 0)).animate(
       CurvedAnimation(
         parent: _controller,
         curve: Curves.easeIn,
@@ -285,18 +277,21 @@ class _AuthCardState extends State<AuthCard>
                   duration: Duration(milliseconds: 300),
                   child: FadeTransition(
                     opacity: _opacityAnimation,
-                    child: TextFormField(
-                      enabled: _authMode == AuthMode.Signup,
-                      decoration:
-                          InputDecoration(labelText: 'Confirm Password'),
-                      obscureText: true,
-                      validator: _authMode == AuthMode.Signup
-                          ? (value) {
-                              if (value != _passwordController.text) {
-                                return 'Passwords do not match!';
+                    child: SlideTransition(
+                      position: _slideAnimation,
+                      child: TextFormField(
+                        enabled: _authMode == AuthMode.Signup,
+                        decoration:
+                            InputDecoration(labelText: 'Confirm Password'),
+                        obscureText: true,
+                        validator: _authMode == AuthMode.Signup
+                            ? (value) {
+                                if (value != _passwordController.text) {
+                                  return 'Passwords do not match!';
+                                }
                               }
-                            }
-                          : null,
+                            : null,
+                      ),
                     ),
                   ),
                 ),

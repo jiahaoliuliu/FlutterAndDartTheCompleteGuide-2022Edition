@@ -12,6 +12,12 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need to see the photo gallery!</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need to take a pickture!</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need record a video!</string>
 	<key>CFBundleName</key>
 	<string>section13</string>
 	<key>CFBundlePackageType</key>

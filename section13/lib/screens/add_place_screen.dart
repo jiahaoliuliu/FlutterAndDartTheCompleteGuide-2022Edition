@@ -63,7 +63,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
           ElevatedButton.icon(
             icon: Icon(Icons.add),
             label: Text('Add place'),
-            onPressed: () {},
+            onPressed: _savePlace,
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.secondary,
               elevation: 0,

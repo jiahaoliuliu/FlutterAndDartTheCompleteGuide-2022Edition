@@ -21,6 +21,11 @@ class _ImageInputState extends State<ImageInput> {
       source: ImageSource.camera,
       maxWidth: 600,
     );
+    // If the image was not taken, it will be null
+    if (imageFile == null) {
+      return;
+    }
+
     setState(() {
       _storedImage = File(imageFile.path);
     });

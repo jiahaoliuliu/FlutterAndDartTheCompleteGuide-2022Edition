@@ -28,9 +28,17 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Your Map'),
-      ),
+      appBar: AppBar(title: Text('Your Map'), actions: <Widget>[
+        if (widget.isSelecting)
+          IconButton(
+            icon: Icon(Icons.check),
+            onPressed: _pickedLocation == null
+                ? null
+                : () {
+                    Navigator.of(context).pop(_pickedLocation);
+                  },
+          )
+      ]),
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
           target: LatLng(

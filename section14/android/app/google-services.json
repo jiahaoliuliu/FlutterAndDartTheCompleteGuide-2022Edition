@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "660311681481",
+    "firebase_url": "https://flutter-course-on-udemy-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "flutter-course-on-udemy",
+    "storage_bucket": "flutter-course-on-udemy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660311681481:android:e490b96668ee88887f6018",
+        "android_client_info": {
+          "package_name": "com.example.section14"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660311681481-bu5kvakdhvtlacjlk1c2snn0fmd9r21l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLbsSH3-MazGcgXgsjsePe5YciVvcDq0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660311681481-bu5kvakdhvtlacjlk1c2snn0fmd9r21l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,23 +18,13 @@ class Messages extends StatelessWidget {
           );
         }
         final chatDocs = chatSnapshot.data.docs;
-        return FutureBuilder(
-          future: FirebaseAuth.instance.currentUser,
-          builder: (ctx, futureSnapshot) {
-            if (futureSnapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return ListView.builder(
-              reverse: true,
-              itemCount: chatDocs.length,
-              itemBuilder: (ctx, index) => MessageBubble(
-                chatDocs[index]['text'],
-                chatDocs[index]['userId'] == futureSnapshot.data.uid,
-              ),
-            );
-          },
+        return ListView.builder(
+          reverse: true,
+          itemCount: chatDocs.length,
+          itemBuilder: (ctx, index) => MessageBubble(
+            chatDocs[index]['text'],
+            chatDocs[index]['userId'] == FirebaseAuth.instance.currentUser.uid,
+          ),
         );
       },
     );

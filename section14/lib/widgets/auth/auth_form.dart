@@ -6,8 +6,8 @@ class AuthForm extends StatefulWidget {
   // Create the structure of the function which should be acepted as parameter
   final void Function(
     String email,
-    String password,
     String userName,
+    String password,
     bool isLogin,
     BuildContext ctx,
   ) submitFn;

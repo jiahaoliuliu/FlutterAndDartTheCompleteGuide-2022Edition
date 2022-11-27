@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {
   final String message;
   final bool isMe;
-  MessageBubble(this.message, this.isMe);
+  final Key key;
+  final String userId;
+  MessageBubble(this.message, this.userId, this.isMe, {this.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +31,41 @@ class MessageBubble extends StatelessWidget {
             vertical: 4,
             horizontal: 8,
           ),
-          child: Text(
-            message,
-            style: TextStyle(
-                color: isMe
-                    ? Colors.black
-                    : Theme.of(context).accentTextTheme.titleMedium.color),
+          child: Column(
+            crossAxisAlignment:
+                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              FutureBuilder(
+                future: FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(userId)
+                    .get(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text('Loading...');
+                  }
+                  return Text(
+                    snapshot.data['username'],
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: isMe
+                            ? Colors.black
+                            : Theme.of(context)
+                                .accentTextTheme
+                                .titleMedium
+                                .color),
+                  );
+                },
+              ),
+              Text(
+                message,
+                style: TextStyle(
+                    color: isMe
+                        ? Colors.black
+                        : Theme.of(context).accentTextTheme.titleMedium.color),
+                textAlign: isMe ? TextAlign.end : TextAlign.start,
+              ),
+            ],
           ),
         ),
       ],

@@ -40,10 +40,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _getBatteryLevel();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Native Code'),
+        title: const Text('Native Code'),
       ),
       body: Center(
         child: Text('Battery Level: $_batteryLevel'),
